@@ -9,7 +9,7 @@ import (
 
 func Websocket(conn *fastws.Conn) {
 	fmt.Println("Connected!")
-	conn.WriteString("Connected!")
+	conn.Write([]byte("$>"))
 
 	var msg []byte
 	var err error
@@ -26,7 +26,7 @@ func Websocket(conn *fastws.Conn) {
 			fmt.Println(err)
 		}
 
-		_, err = conn.Write(out)
+		_, err = conn.WriteString(string(out) + "$>")
 		if err != nil {
 			fmt.Printf("error writing message: %s\n", err)
 			break
